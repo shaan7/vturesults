@@ -1,0 +1,54 @@
+body {
+  padding: 50px;
+  font: 14px 'Open Sans', sans-serif;
+}
+a {
+  color: #00b7ff;
+}
+form {
+  background: -webkit-gradient(linear, bottom, left 175px, from(#ccc), to(#eee));
+  background: -moz-linear-gradient(bottom, #ccc, #eee 175px);
+  margin: auto;
+  position: relative;
+  width: 550px;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: bold;
+  color: #09c;
+  text-decoration: none;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  padding: 20px;
+  border: 1px solid #999;
+  border: inset 1px solid #333;
+  -webkit-box-shadow: 0px 0px 8px rgba(0,0,0,0.3);
+  -moz-box-shadow: 0px 0px 8px rgba(0,0,0,0.3);
+  box-shadow: 0px 0px 8px rgba(0,0,0,0.3);
+}
+input {
+  width: 375px;
+  display: block;
+  border: 1px solid #999;
+  height: 25px;
+  -webkit-box-shadow: 0px 0px 8px rgba(0,0,0,0.3);
+  -moz-box-shadow: 0px 0px 8px rgba(0,0,0,0.3);
+  box-shadow: 0px 0px 8px rgba(0,0,0,0.3);
+  margin: 10px;
+}
+input.button {
+  width: 100px;
+  background: #09c;
+  color: #fff;
+  height: 30px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  border: 1 p solid #999;
+}
+input:focus {
+  border: 2px solid #09c;
+}
+.centered {
+  text-align: center;
+}

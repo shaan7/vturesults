@@ -1,17 +1,16 @@
 {
-  "name": "OpenShift-Sample-App",
+  "name": "vtu-results-mailer",
   "version": "1.0.0",
-  "description": "OpenShift Sample Application",
+  "description": "Register your VTU USN and get instant mails with your results",
   "keywords": [
-    "OpenShift",
-    "Node.js",
-    "application",
-    "openshift"
+    "VTU",
+    "VTU Results",
+    "USN"
   ],
   "author": {
-    "name": "OpenShift",
-    "email": "ramr@example.org",
-    "url":  "http://openshift.redhat.com/"
+    "name": "Shantanu Tushar",
+    "email": "shantanu@kde.org",
+    "url":  "http://www.shantanutushar.com/"
   },
   "homepage": "http://openshift.redhat.com/",
   "repository": {
@@ -25,10 +24,20 @@
   },
 
   "dependencies": {
+    "express": "3.0.5",
+    "ejs": "*",
+    "stylus": "*",
+    "mongojs": "*",
+    "mongodb": "*",
+    "async": "*",
+    "request": "*",
+    "nodemailer": "*",
+    "validator": "*",
+    "express-validator": "*"
   },
   "devDependencies": {},
   "bundleDependencies": [],
 
   "private": true,
-  "main": "server.js"
+  "main": "app.js"
 }
