@@ -10,13 +10,13 @@ var errorHandler = function(err, callback) {
 exports.addRecord = function(user, collection, callback) {
   var objectToInsert = { name: user.name, email: user.email,
                       usn: user.usn };
-  db.users.insert( objectToInsert, errorHandler(err, callback));
+  db.users.insert( objectToInsert, function(err) { errorHandler(err, callback) });
 };
 
 exports.removeRecord = function(user, collection, callback) {
   var objectToRemove = { name: user.name, email: user.email,
                       usn: user.usn };
-  db.users.remove( objectToRemove, errorHandler(err, callback));
+  db.users.remove( objectToRemove, function(err) { errorHandler(err, callback) });
 };
 
 exports.listRecords = function(collection, callback) {
@@ -38,6 +38,6 @@ exports.removeUser = function(user, callback) {
 };
 
 exports.disableUser = function(user, callback) {
-  exports.addRecord(user, usersCollection + '_trash', errorHandler(err, callback));
-  exports.removeUser(user, errorHandler(err, callback));
+  exports.addRecord(user, usersCollection + '_trash', function(err) { errorHandler(err, callback) });
+  exports.removeUser(user, function(err) { errorHandler(err, callback) });
 };
