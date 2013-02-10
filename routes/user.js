@@ -18,12 +18,12 @@ exports.register = function(req, res){
   var errors = req.validationErrors(true);
   if (errors) {
     res.render('index', {
-      title: 'Welcome to VTU Results Instant Notification',
+      title: 'Welcome to VTU Results Instant Notification'
     });
     return;
   }
 
-  objectToInsert = { name: req.body.name, email: req.body.email,
+ var objectToInsert = { name: req.body.name, email: req.body.email,
                       usn: req.body.usn };
   require('../dbhelper.js').addUser(objectToInsert, function(err) {
     if (err) {
