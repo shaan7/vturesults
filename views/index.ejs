@@ -3,6 +3,13 @@
   <% include header %>
   <body>
     <h1 class="centered"><%= title %></h1>
+    <% if(typeof err !== "undefined" ){ %>
+        <ul id="errors">
+                <% for(var key in err){ %>
+                        <li><%= err[key].param + ' ' + err[key].msg %></li>
+                <% } %>
+        </ul>
+     <% } %>
     <form action="/register" method="POST">
       <label for="name">Name</label>
       <input id="name" type="text" name="name" />

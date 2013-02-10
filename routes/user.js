@@ -11,14 +11,17 @@ exports.list = function(req, res){
 };
 
 exports.register = function(req, res){
-  req.assert('name', 'required').notEmpty();
-  req.assert('email', 'required').isEmail();
-  req.assert('usn', 'required').regex('([0-9]+[a-zA-Z]+){2}[0-9]+');
-
+  req.assert('name', 'is required').notEmpty();
+  req.assert('email', 'is invalid').isEmail();
+  req.assert('email', 'is required').notEmpty();
+  req.assert('usn', 'is invalid').regex('([0-9]+[a-zA-Z]+){2}[0-9]+');
+  req.assert('usn', 'is required').notEmpty();
   var errors = req.validationErrors(true);
   if (errors) {
+      console.log(errors);
     res.render('index', {
-      title: 'Welcome to VTU Results Instant Notification'
+      title: 'Welcome to VTU Results Instant Notification',
+      err: errors
     });
     return;
   }
