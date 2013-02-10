@@ -28,7 +28,7 @@ exports.sendMail = function(sendTo, messageSubject, messageText, messageHtml, ca
       console.log('Email sent to ' + sendTo + ' successfully');
       callback(false, sendTo);
   });
-}
+};
 
 exports.sendMailToUser = function(user, messageSubject, messageText, messageHtml, callback) {
   exports.sendMail(user.email, messageSubject, messageText, messageHtml, function(error, email) {
