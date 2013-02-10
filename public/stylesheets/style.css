@@ -52,3 +52,10 @@ input:focus {
 .centered {
   text-align: center;
 }
+ul#errors {
+  background-color: #ffc0cb;
+  border-radius: 5px;
+  padding: 10px 25px;
+  margin-top: 0px;
+  color: #555;
+}
