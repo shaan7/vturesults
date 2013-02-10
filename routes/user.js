@@ -42,7 +42,7 @@ exports.register = function(req, res){
     }
   });
 
-  welcomeMailToUser(user, "Lol you failed");
+  welcomeMailToUser(user, 'Thanks for registering. You will receive an email with your results when they\'re out.');
 
   res.render('message', {
     title: 'Thank you for registering',
