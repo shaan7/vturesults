@@ -10,6 +10,13 @@ exports.list = function(req, res){
   });
 };
 
+var welcomeMailToUser = function(user, message) {
+  var mailer=require('./mailer.js');
+  mailer.sendMailToUser(user, "Thank you for registering", message, message, function(err, user) {
+    if (err) { console.log('Could not send email to ' + user.email); return; }
+  });
+};
+
 exports.register = function(req, res){
   req.assert('name', 'is required').notEmpty();
   req.assert('email', 'is invalid').isEmail();
@@ -26,14 +33,17 @@ exports.register = function(req, res){
     return;
   }
 
- var objectToInsert = { name: req.body.name, email: req.body.email,
+ var user = { name: req.body.name, email: req.body.email,
                       usn: req.body.usn };
-  require('../dbhelper.js').addUser(objectToInsert, function(err) {
+  require('../dbhelper.js').addUser(user, function(err) {
     if (err) {
       res.send('There was an error registering you. Please try again');
       return;
     }
   });
+
+  welcomeMailToUser(user, "Lol you failed");
+
   res.render('message', {
     title: 'Thank you for registering',
     message: 'Thanks for registering. You will get an email with your results as soon as they\'re out'

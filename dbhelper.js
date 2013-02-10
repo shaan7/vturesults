@@ -1,5 +1,5 @@
 var mongourl = process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP_NAME;
-//var mongourl = "mongodb://mongodb:@localhost/test"
+//var mongourl = "mongodb://mongodb:@localhost/test";
 var usersCollection = 'users';
 var db = require('mongojs').connect(mongourl, Array(usersCollection));
 
