@@ -11,7 +11,7 @@ exports.list = function(req, res){
 };
 
 var welcomeMailToUser = function(user, message) {
-  var mailer=require('./mailer.js');
+  var mailer=require('../mailer.js');
   mailer.sendMailToUser(user, "Thank you for registering", message, message, function(err, user) {
     if (err) { console.log('Could not send email to ' + user.email); return; }
   });
