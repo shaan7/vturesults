@@ -1,11 +1,18 @@
 exports.sendMail = function(sendTo, messageSubject, messageText, messageHtml, callback) {
   var nodemailer = require('nodemailer');
+  var config = require('./data/config.js');
 
   // Create a Sendmail transport object
-  var transport = nodemailer.createTransport("Sendmail", "/usr/sbin/sendmail");
+  var transport = nodemailer.createTransport("Mailgun", {
+    auth: {
+      user: config.sendgrid.username,
+      pass: config.sendgrid.password
+    }
+  });
 
   // Message object
   var message = {
+      from: config.sendgrid.from,
       // Comma separated list of recipients
       to: sendTo,
       // Subject of the message

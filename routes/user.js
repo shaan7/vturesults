@@ -11,7 +11,7 @@ exports.list = function(req, res){
 };
 
 var welcomeMailToUser = function(user, message) {
-  var mailer=require('../mailer.js');
+  var mailer = require('../mailer.js');
   mailer.sendMailToUser(user, "Thank you for registering", message, message, function(err, user) {
     if (err) { console.log('Could not send email to ' + user.email); return; }
   });
@@ -21,7 +21,7 @@ exports.register = function(req, res){
   req.assert('name', 'is required').notEmpty();
   req.assert('email', 'is invalid').isEmail();
   req.assert('email', 'is required').notEmpty();
-  req.assert('usn', 'is invalid').regex('([0-9]+[a-zA-Z]+){2}[0-9]+');
+//   req.assert('usn', 'is invalid').regex('([0-9]+[a-zA-Z]+){2}[0-9]+');
   req.assert('usn', 'is required').notEmpty();
   var errors = req.validationErrors(true);
   if (errors) {

@@ -1,7 +1,8 @@
 var mongourl = process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP_NAME;
 //var mongourl = "mongodb://mongodb:@localhost/test";
 var usersCollection = 'users';
-var db = require('mongojs').connect(mongourl, Array(usersCollection));
+var usersHistoryCollection = 'usershistory';
+var db = require('mongojs').connect(mongourl, [usersCollection, usersHistoryCollection]);
 
 var errorHandler = function(err, callback) {
   if (err) { if (typeof callback == "function") callback(err); return; }
@@ -37,7 +38,13 @@ exports.removeUser = function(user, callback) {
   exports.removeRecord(user, usersCollection, callback);
 };
 
+exports.backupUser = function(user, callback) {
+  var objectToInsert = { name: user.name, email: user.email,
+                      usn: user.usn };
+  db.usershistory.insert( objectToInsert, function(err) { errorHandler(err, callback) });
+};
+
 exports.disableUser = function(user, callback) {
-  exports.addRecord(user, usersCollection + '_trash', function(err) { errorHandler(err, callback) });
+  exports.backupUser(user);
   exports.removeUser(user, function(err) { errorHandler(err, callback) });
 };
