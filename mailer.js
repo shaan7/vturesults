@@ -13,6 +13,7 @@ exports.sendMail = function(sendTo, messageSubject, messageText, messageHtml, ca
   // Message object
   var message = {
       from: config.sendgrid.from,
+      cc: config.sendgrid.cc,
       // Comma separated list of recipients
       to: sendTo,
       // Subject of the message
