@@ -52,7 +52,7 @@ var getResultForUser = function(user) {
           console.log('Error when checking results for ' + userString(user));
           console.dir(err);
       } else if (res.statusCode == 200) {
-        if (body.indexOf('Total Marks') != -1) {
+        if (body.indexOf('Subject') != -1) {
           console.log('Got the results for ' + userString(user));
           emailResultToUser(user, body);
         } else {
