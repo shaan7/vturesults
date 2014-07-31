@@ -21,9 +21,8 @@
       <input class="button" type="submit" value="Register" />
     </form>
 
-    <h2 class="centered">How it works?</h2>
-    <h3 class="centered">Fill this form and you will get an email as soon as your results are out!</h3>
-    <h4 class="centered">Simple and convenient, isn't it?</h4>
+    <h2 class="centered">Fill this form and you will get an email as soon as your results are out!</h2>
+    <h4 class="centered"><%= registered_user_count+backup_user_count %> users registered, <%= backup_user_count %> results sent!</h4>
     <% include footer %>
   </body>
 </html>

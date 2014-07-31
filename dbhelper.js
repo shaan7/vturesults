@@ -26,9 +26,19 @@ exports.listRecords = function(collection, callback) {
   });
 };
 
+exports.countRecords = function(collection, callback) {
+  collection.find().count(function(err, results) {
+    callback(err, results);
+  });
+};
+
 exports.listUsers = function(callback) {
   exports.listRecords(usersCollection, callback);
 };
+
+exports.countUsers = function(callback) {
+  exports.countRecords(db.users, callback);
+}
 
 exports.addUser = function(user, callback) {
   exports.addRecord(user, usersCollection, callback);
@@ -37,6 +47,10 @@ exports.addUser = function(user, callback) {
 exports.removeUser = function(user, callback) {
   exports.removeRecord(user, usersCollection, callback);
 };
+
+exports.countBackupUsers = function(callback) {
+  exports.countRecords(db.usershistory, callback);
+}
 
 exports.backupUser = function(user, callback) {
   var objectToInsert = { name: user.name, email: user.email,

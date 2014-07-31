@@ -8,9 +8,9 @@ var vtuHiddenFormValue = '';
 var emailResultToUser = function(user, result) {
   var mailer=require('./mailer.js');
   mailer.sendMailToUser(user, "VTU Results", result, result, function(err, user) {
-    if (err) { console.log('Could not send email to ' + user.email); return; }
+    if (err) { console.error('Could not send email to ' + user.email); return; }
     require('./dbhelper.js').disableUser(user, function(err) {
-      if (err) console.log('WARNING: Could not disable user ' + user.email);
+      if (err) console.warn('Could not disable user ' + user.email);
     });
   });
 }
@@ -31,7 +31,7 @@ var fetchVtuHiddenFormParam = function() {
             vtuHiddenFormValue = match[2];
           }
       } else {
-        console.log("Error when trying to get hidden params");
+        console.error("Error when trying to get hidden params");
       }
     });
 }
@@ -49,7 +49,7 @@ var getResultForUser = function(user) {
       form: formData
     }, function(err, res, body) {
       if (err) {
-          console.log('Error when checking results for ' + userString(user));
+          console.error('Error when checking results for ' + userString(user));
           console.dir(err);
       } else if (res.statusCode == 200) {
         if (body.indexOf('Subject') != -1) {
@@ -62,7 +62,7 @@ var getResultForUser = function(user) {
           console.log('VTU Hidden form param seems to be invalid, fetching again...');
           fetchVtuHiddenFormParam();
       } else {
-          console.log('Unknown statusCode when checking results for ' + userString(user));
+          console.error('Unknown statusCode when checking results for ' + userString(user));
           console.dir(err);
       }
     }
@@ -71,12 +71,27 @@ var getResultForUser = function(user) {
 
 var checkForResults = function() {
   require('./dbhelper.js').listUsers(function(err, users) {
-    if (err) { console.log('Could not list users: ' + err); return; }
+    if (err) { console.error('Could not list users: ' + err); return; }
     require('async').forEach(users, function(user, callbackOnFinish) {
       getResultForUser(user);
       callbackOnFinish();
     });
   });
+};
+
+var populateStats = function(req, res, next) {
+  dbhelper = require('./dbhelper.js');
+  dbhelper.countUsers(function(err, count) {
+  if (err) { console.error('Could not count users: ' + err); return; }
+    req.registered_user_count = count;
+  });
+
+  dbhelper.countBackupUsers(function(err, count) {
+  if (err) { console.error('Could not count backup users: ' + err); return; }
+    req.backup_user_count = count;
+  });
+
+  next();
 };
 
 var express = require('express')
@@ -93,6 +108,8 @@ app.configure(function(){
   app.set('port', process.env.OPENSHIFT_NODEJS_PORT || 8000);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
+
+  app.use(populateStats);
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
